@@ -326,7 +326,9 @@
     "vt-pbf": "^3.1.1",
     "wellknown": "^0.5.0",
     "whatwg-fetch": "^3.0.0",
+    "xlsx": "^0.16.9",
     "xml2js": "^0.4.22",
+    "yarn": "^1.22.10",
     "yauzl": "^2.10.0"
   },
   "devDependencies": {
@@ -833,8 +835,8 @@
     "val-loader": "^1.1.1",
     "vega": "^5.19.1",
     "vega-lite": "^4.17.0",
-    "vega-spec-injector": "^0.0.2",
     "vega-schema-url-parser": "^2.1.0",
+    "vega-spec-injector": "^0.0.2",
     "vega-tooltip": "^0.25.0",
     "venn.js": "0.2.20",
     "vinyl-fs": "^3.0.3",

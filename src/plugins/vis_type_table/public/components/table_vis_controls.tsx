@@ -10,6 +10,7 @@ import React, { memo, useState, useCallback } from 'react';
 import { EuiButtonEmpty, EuiContextMenuItem, EuiContextMenuPanel, EuiPopover } from '@elastic/eui';
 import { FormattedMessage } from '@kbn/i18n/react';
 import { i18n } from '@kbn/i18n';
+import { writeFile, read } from 'xlsx';
 
 import { DatatableColumn, DatatableRow } from 'src/plugins/expressions';
 import { CoreStart } from 'kibana/public';
@@ -57,6 +58,9 @@ export const TableVisControls = memo(
             raw: !formatted,
           }
         );
+        const workbook = read(content, { type: 'string', raw: true });
+        writeFile(workbook, 'amr.xlsx', { type: 'binary' });
+
         downloadFileAs(`${filename || 'unsaved'}.csv`, { content, type: exporters.CSV_MIME_TYPE });
       },
       [columns, rows, filename, uiSettings]
