@@ -10,6 +10,7 @@ import { i18n } from '@kbn/i18n';
 import _ from 'lodash';
 import moment from 'moment-timezone';
 import { CoreSetup } from 'src/core/public';
+import { writeFile, read } from 'xlsx';
 import {
   ISearchEmbeddable,
   SEARCH_EMBEDDABLE_TYPE,
@@ -57,7 +58,7 @@ export class GetCsvReportPanelAction implements ActionDefinition<ActionContext> 
 
   public getDisplayName() {
     return i18n.translate('xpack.reporting.dashboard.downloadCsvPanelTitle', {
-      defaultMessage: 'Download CSV',
+      defaultMessage: 'Download as CSV',
     });
   }
 
@@ -140,6 +141,9 @@ export class GetCsvReportPanelAction implements ActionDefinition<ActionContext> 
       .post(`${API_GENERATE_IMMEDIATE}/${id}`, { body })
       .then((rawResponse: string) => {
         this.isDownloading = false;
+
+        const workbook = read(rawResponse, { type: 'string', raw: true });
+        writeFile(workbook, 'amr.xlsx', { type: 'binary' });
 
         const download = `${embeddable.getSavedSearch().title}.csv`;
         const blob = new Blob([rawResponse], { type: 'text/csv;charset=utf-8;' });
